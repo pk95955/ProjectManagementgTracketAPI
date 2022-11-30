@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectManagementTracketAPI
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "APiGateway", "APiGateway", "{98C99F2B-C7A2-4319-A667-637AD72C2E04}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIGateway", "APIGateway\APIGateway.csproj", "{1CC08B3A-8AFD-4B48-ACF7-4B0BB7C19163}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APIGateway", "APIGateway\APIGateway.csproj", "{1CC08B3A-8AFD-4B48-ACF7-4B0BB7C19163}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MemberAssigendTask", "MemberAssigendTask\MemberAssigendTask.csproj", "{B20BD0B7-3166-4697-A125-6143D8666C45}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +25,10 @@ Global
 		{1CC08B3A-8AFD-4B48-ACF7-4B0BB7C19163}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1CC08B3A-8AFD-4B48-ACF7-4B0BB7C19163}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1CC08B3A-8AFD-4B48-ACF7-4B0BB7C19163}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B20BD0B7-3166-4697-A125-6143D8666C45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B20BD0B7-3166-4697-A125-6143D8666C45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B20BD0B7-3166-4697-A125-6143D8666C45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B20BD0B7-3166-4697-A125-6143D8666C45}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

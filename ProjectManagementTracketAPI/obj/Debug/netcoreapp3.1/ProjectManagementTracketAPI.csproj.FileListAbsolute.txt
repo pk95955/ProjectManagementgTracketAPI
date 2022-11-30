@@ -67,4 +67,6 @@ D:\Local_Project\ProjectManagementTracker\ProjectManagementTracketAPI\obj\Debug\
 D:\Local_Project\ProjectManagementTracker\ProjectManagementTracketAPI\obj\Debug\netcoreapp3.1\ProjectManagementTracketAPI.dll
 D:\Local_Project\ProjectManagementTracker\ProjectManagementTracketAPI\obj\Debug\netcoreapp3.1\ProjectManagementTracketAPI.pdb
 D:\Local_Project\ProjectManagementTracker\ProjectManagementTracketAPI\obj\Debug\netcoreapp3.1\ProjectManagementTracketAPI.genruntimeconfig.cache
+D:\Local_Project\ProjectManagementTracker\ProjectManagementTracketAPI\bin\Debug\netcoreapp3.1\RabbitMQ.Client.dll
+D:\Local_Project\ProjectManagementTracker\ProjectManagementTracketAPI\bin\Debug\netcoreapp3.1\System.Threading.Channels.dll
 D:\Local_Project\ProjectManagementTracker\ProjectManagementTracketAPI\obj\Debug\netcoreapp3.1\ProjectManagementTracketAPI.csproj.AssemblyReference.cache

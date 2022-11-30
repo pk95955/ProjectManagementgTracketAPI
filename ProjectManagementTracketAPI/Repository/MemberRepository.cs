@@ -8,6 +8,9 @@ using AutoMapper;
 using ProjectManagementTracketAPI.DbContexts;
 using ProjectManagementTracketAPI.Models.DTO;
 using Microsoft.EntityFrameworkCore;
+using RabbitMQ.Client;
+using System.Text;
+using Newtonsoft.Json;
 
 namespace ProjectManagementTracketAPI.Repository
 {
@@ -100,6 +103,22 @@ namespace ProjectManagementTracketAPI.Repository
                 Message ="Task Assigned Successfully"
 
             };
+            // published message rabbit mq
+            var factory = new ConnectionFactory
+            {
+                Uri = new Uri("amqp://guest:guest@localhost:5672")
+
+            };
+            using var connection = factory.CreateConnection();
+            using var channel = connection.CreateModel();
+            channel.QueueDeclare("assinged-task-queue", 
+                durable: true, exclusive: false, autoDelete: false,
+                
+                arguments: null) ;
+          //  var message = new { Name = "Message-assignedtask", Message = "hello world" };
+            var body = Encoding.ASCII.GetBytes(JsonConvert.SerializeObject(assigningTask));
+            channel.BasicPublish("", "assinged-task-queue", null, body);
+            //
             return responseDTO;
         }
         public async Task<AssigningTaskDTO> GetAssigedTask(int MemberId)
