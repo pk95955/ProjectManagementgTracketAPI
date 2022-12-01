@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProjectManagementTracketAPI.DbContexts;
 using ProjectManagementTracketAPI.Models;
+using ProjectManagementTracketAPI.Token;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,18 +12,27 @@ namespace ProjectManagementTracketAPI.Repository
     public class UserRepository: IUserRepository
     {
         private readonly ApplicationDbContexts _db;
+        private readonly string _secretKey;
+
        
-        public UserRepository(ApplicationDbContexts db)
+        public UserRepository(ApplicationDbContexts db, string secretKey)
         {
-            _db = db;           
+            _db = db;
+            _secretKey = secretKey;
         }
-        public async Task<(bool,User) > VerifyUser(string userName, string password)
+        public async Task<(bool,string)> VerifyUser(string userName, string password)
         {
           User user = await _db.User.Where(r => r.LoginName == userName && r.Password == password).FirstOrDefaultAsync();
-            bool isVerify = false;
+            string newscretKey = _secretKey;
+            string token = "";
+            bool isVerifyUser = false;
             if (user != null)
-                isVerify = true;
-            return (isVerify, user);
+            {
+                isVerifyUser = true;
+                token =  new TokenGeneration().TokenGenration(user, _secretKey);
+            }
+              
+            return  (isVerifyUser ,token);
         }
     }
 }

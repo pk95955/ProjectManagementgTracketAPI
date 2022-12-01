@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Z5z1dIUZcB5wPj+KNiwbDr1KVtjRe7Uvtu47fZJrSkViAknTvhlDJMHQuq/7Tz5UY5cbKXoE5XDpocfA57kSZQ==",
+  "dgSpecHash": "LJfzdPZrFih1nWVVv3MAK2gSJiqJSN9ytBVy7O0OskdW6wG0iR3aPJmcPColfKxDrZT7tYVaWy3M1fmDTUcVRw==",
   "success": true,
   "projectFilePath": "D:\\Local_Project\\ProjectManagementTracker\\ProjectManagementTracketAPI\\ProjectManagementTracketAPI.csproj",
   "expectedPackageFiles": [
@@ -41,6 +41,9 @@
     "C:\\Users\\cogdotnet1719\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
     "C:\\Users\\cogdotnet1719\\.nuget\\packages\\microsoft.win32.registry\\4.5.0\\microsoft.win32.registry.4.5.0.nupkg.sha512",
     "C:\\Users\\cogdotnet1719\\.nuget\\packages\\newtonsoft.json\\10.0.1\\newtonsoft.json.10.0.1.nupkg.sha512",
+    "C:\\Users\\cogdotnet1719\\.nuget\\packages\\nlog\\5.1.0\\nlog.5.1.0.nupkg.sha512",
+    "C:\\Users\\cogdotnet1719\\.nuget\\packages\\nlog.extensions.logging\\5.2.0\\nlog.extensions.logging.5.2.0.nupkg.sha512",
+    "C:\\Users\\cogdotnet1719\\.nuget\\packages\\nlog.web.aspnetcore\\5.2.0\\nlog.web.aspnetcore.5.2.0.nupkg.sha512",
     "C:\\Users\\cogdotnet1719\\.nuget\\packages\\rabbitmq.client\\6.4.0\\rabbitmq.client.6.4.0.nupkg.sha512",
     "C:\\Users\\cogdotnet1719\\.nuget\\packages\\runtime.native.system\\4.3.0\\runtime.native.system.4.3.0.nupkg.sha512",
     "C:\\Users\\cogdotnet1719\\.nuget\\packages\\runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",

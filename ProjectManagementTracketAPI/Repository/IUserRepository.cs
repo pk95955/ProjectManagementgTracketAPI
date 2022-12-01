@@ -8,6 +8,6 @@ namespace ProjectManagementTracketAPI.Repository
 {
     public interface IUserRepository
     {
-         Task<(bool, User)> VerifyUser(string userName, string password);
+         Task<(bool, string)> VerifyUser(string userName, string password);
     }
 }

@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "gALH/rfjG069L9wKtq9nm8KKOtrbklilnw8PpLzAAembyF6BQQUMhlqLklUr2RT/sirqhRzC8AruIF2slkejXA==",
+  "dgSpecHash": "C/iAoyR5jQ7ckm6k7JfLVz8VzkXbpA4aX4loFe5QnZQvOxTkF7m07yKyYGD0LH+X3NXZrQgF4xcHBkASaQCQsw==",
   "success": true,
   "projectFilePath": "D:\\Local_Project\\ProjectManagementTracker\\MemberAssigendTask\\MemberAssigendTask.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\cogdotnet1719\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\3.1.0\\microsoft.aspnetcore.authentication.jwtbearer.3.1.0.nupkg.sha512",
     "C:\\Users\\cogdotnet1719\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\cogdotnet1719\\.nuget\\packages\\microsoft.bcl.hashcode\\1.1.1\\microsoft.bcl.hashcode.1.1.1.nupkg.sha512",
     "C:\\Users\\cogdotnet1719\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",

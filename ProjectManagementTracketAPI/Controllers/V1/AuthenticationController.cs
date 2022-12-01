@@ -1,39 +1,34 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using ProjectManagementTracketAPI.Models;
 using ProjectManagementTracketAPI.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using ProjectManagementTracketAPI.Auth;
 
 namespace ProjectManagementTracketAPI.Controllers.V1
 {
-    [Route("api/[controller]")]
+    [Route("projectmanagement/api/authentication")]
     [ApiController]
     public class AuthenticationController : ControllerBase
     {
-        private readonly IAuth auth;
-        public AuthenticationController(IAuth auth)
+       // private readonly IAuth auth;
+        private readonly IUserRepository _userRepo;
+        public AuthenticationController(  IUserRepository userRep )
         {
-            this.auth = auth;
+           _userRepo = userRep;
         }
-        [HttpPost("authentication")]
-        public IActionResult VerifyUser(string userName, string password)
-        {
-            bool isSuccess;
+        [HttpPost("authentication/{userName}/{password}")]
+        public async Task<IActionResult> VerifyUser(string userName, string password)
+        {         
             string tokenKey;
-
-         (isSuccess, tokenKey) = auth.Authentication(userName, password);
-            if (isSuccess)
+            bool isUserVerify;
+            (isUserVerify, tokenKey) = await _userRepo.VerifyUser(userName, password);
+            if (isUserVerify)
             {
                 return Ok(tokenKey);
             }
             else
             {
                 return Unauthorized();
-            }
-           // _userRepo.VerifyUser(userName, password);
+            }          
         }
     }
 }

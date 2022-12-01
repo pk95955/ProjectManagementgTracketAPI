@@ -31,6 +31,7 @@
     ".NETCoreApp,Version=v3.1": {
       "MemberAssigendTask/1.0.0": {
         "dependencies": {
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "3.1.0",
           "Microsoft.EntityFrameworkCore.SqlServer": "3.1.31",
           "Microsoft.EntityFrameworkCore.Tools": "3.1.31",
           "RabbitMQ.Client": "6.4.0",
@@ -308,6 +309,20 @@
         },
         "compile": {
           "MemberAssigendTask.dll": {}
+        }
+      },
+      "Microsoft.AspNetCore.Authentication.JwtBearer/3.1.0": {
+        "dependencies": {
+          "Microsoft.IdentityModel.Protocols.OpenIdConnect": "5.5.0"
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/Microsoft.AspNetCore.Authentication.JwtBearer.dll": {
+            "assemblyVersion": "3.1.0.0",
+            "fileVersion": "3.100.19.56601"
+          }
+        },
+        "compile": {
+          "lib/netcoreapp3.1/Microsoft.AspNetCore.Authentication.JwtBearer.dll": {}
         }
       },
       "Microsoft.Bcl.AsyncInterfaces/1.1.1": {
@@ -3048,6 +3063,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "Microsoft.AspNetCore.Authentication.JwtBearer/3.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Ui/tHIXkUa2daOeHKoHSRE8r0U/i9ar0wAeeUPt3ILidsrXVcq4A7wX9g6AJjVBW6Va0Elw1/JNtyrk+wz5pSg==",
+      "path": "microsoft.aspnetcore.authentication.jwtbearer/3.1.0",
+      "hashPath": "microsoft.aspnetcore.authentication.jwtbearer.3.1.0.nupkg.sha512"
     },
     "Microsoft.Bcl.AsyncInterfaces/1.1.1": {
       "type": "package",

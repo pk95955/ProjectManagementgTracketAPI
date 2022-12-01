@@ -510,6 +510,44 @@
           "lib/netstandard1.3/Newtonsoft.Json.dll": {}
         }
       },
+      "NLog/5.1.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/NLog.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/NLog.dll": {}
+        }
+      },
+      "NLog.Extensions.Logging/5.2.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Configuration.Abstractions": "3.1.0",
+          "Microsoft.Extensions.Logging": "3.1.0",
+          "NLog": "5.1.0"
+        },
+        "compile": {
+          "lib/netstandard2.1/NLog.Extensions.Logging.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/NLog.Extensions.Logging.dll": {}
+        }
+      },
+      "NLog.Web.AspNetCore/5.2.0": {
+        "type": "package",
+        "dependencies": {
+          "NLog.Extensions.Logging": "5.2.0"
+        },
+        "compile": {
+          "lib/netcoreapp3.1/NLog.Web.AspNetCore.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/NLog.Web.AspNetCore.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
       "RabbitMQ.Client/6.4.0": {
         "type": "package",
         "dependencies": {
@@ -2670,6 +2708,77 @@
         "newtonsoft.json.10.0.1.nupkg.sha512",
         "newtonsoft.json.nuspec",
         "tools/install.ps1"
+      ]
+    },
+    "NLog/5.1.0": {
+      "sha512": "oW7ekrkRG9okpDMUcEglunWj8Qf2RY8qkgl+/chJoavzg3dbT13y32t19R54FKkmq80fKzw4ZekZkCrRGanKgQ==",
+      "type": "package",
+      "path": "nlog/5.1.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "N.png",
+        "lib/net35/NLog.dll",
+        "lib/net35/NLog.xml",
+        "lib/net45/NLog.dll",
+        "lib/net45/NLog.xml",
+        "lib/net46/NLog.dll",
+        "lib/net46/NLog.xml",
+        "lib/netstandard1.3/NLog.dll",
+        "lib/netstandard1.3/NLog.xml",
+        "lib/netstandard1.5/NLog.dll",
+        "lib/netstandard1.5/NLog.xml",
+        "lib/netstandard2.0/NLog.dll",
+        "lib/netstandard2.0/NLog.xml",
+        "nlog.5.1.0.nupkg.sha512",
+        "nlog.nuspec"
+      ]
+    },
+    "NLog.Extensions.Logging/5.2.0": {
+      "sha512": "wzVFG5p8Nwbs1Ws29T8YJg+UbJfsh61h6U4xArnDSrtVvOoccwKtoFPZWwbym3ZTiTFmHIf7Ugu1j/WnT7z3vg==",
+      "type": "package",
+      "path": "nlog.extensions.logging/5.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "N.png",
+        "lib/net461/NLog.Extensions.Logging.dll",
+        "lib/net461/NLog.Extensions.Logging.xml",
+        "lib/net6.0/NLog.Extensions.Logging.dll",
+        "lib/net6.0/NLog.Extensions.Logging.xml",
+        "lib/netstandard1.3/NLog.Extensions.Logging.dll",
+        "lib/netstandard1.3/NLog.Extensions.Logging.xml",
+        "lib/netstandard1.5/NLog.Extensions.Logging.dll",
+        "lib/netstandard1.5/NLog.Extensions.Logging.xml",
+        "lib/netstandard2.0/NLog.Extensions.Logging.dll",
+        "lib/netstandard2.0/NLog.Extensions.Logging.xml",
+        "lib/netstandard2.1/NLog.Extensions.Logging.dll",
+        "lib/netstandard2.1/NLog.Extensions.Logging.xml",
+        "nlog.extensions.logging.5.2.0.nupkg.sha512",
+        "nlog.extensions.logging.nuspec"
+      ]
+    },
+    "NLog.Web.AspNetCore/5.2.0": {
+      "sha512": "DqFgdydAWW+pshPdzh0ydk2jJrrVaZmBNz5+p9K8N9q/4BOPJ94S2fD8t9erd7ZMhnigaqOq/HqZH4nGGOYTbA==",
+      "type": "package",
+      "path": "nlog.web.aspnetcore/5.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "N.png",
+        "lib/net461/NLog.Web.AspNetCore.dll",
+        "lib/net461/NLog.Web.AspNetCore.xml",
+        "lib/net5.0/NLog.Web.AspNetCore.dll",
+        "lib/net5.0/NLog.Web.AspNetCore.xml",
+        "lib/net6.0/NLog.Web.AspNetCore.dll",
+        "lib/net6.0/NLog.Web.AspNetCore.xml",
+        "lib/netcoreapp3.1/NLog.Web.AspNetCore.dll",
+        "lib/netcoreapp3.1/NLog.Web.AspNetCore.xml",
+        "lib/netstandard2.0/NLog.Web.AspNetCore.dll",
+        "lib/netstandard2.0/NLog.Web.AspNetCore.xml",
+        "nlog.web.aspnetcore.5.2.0.nupkg.sha512",
+        "nlog.web.aspnetcore.nuspec",
+        "readme.txt"
       ]
     },
     "RabbitMQ.Client/6.4.0": {
@@ -6335,6 +6444,8 @@
       "Microsoft.EntityFrameworkCore.Design >= 3.1.31",
       "Microsoft.EntityFrameworkCore.SqlServer >= 3.1.31",
       "Microsoft.EntityFrameworkCore.Tools >= 3.1.31",
+      "NLog >= 5.1.0",
+      "NLog.Web.AspNetCore >= 5.2.0",
       "RabbitMQ.Client >= 6.4.0",
       "Swashbuckle.AspNetCore >= 6.4.0"
     ]
@@ -6413,6 +6524,14 @@
             "suppressParent": "All",
             "target": "Package",
             "version": "[3.1.31, )"
+          },
+          "NLog": {
+            "target": "Package",
+            "version": "[5.1.0, )"
+          },
+          "NLog.Web.AspNetCore": {
+            "target": "Package",
+            "version": "[5.2.0, )"
           },
           "RabbitMQ.Client": {
             "target": "Package",

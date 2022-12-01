@@ -9,32 +9,17 @@ using System.Threading.Tasks;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 
-namespace ProjectManagementTracketAPI.Auth
+namespace ProjectManagementTracketAPI.Token
 {
-    public class Auth :IAuth
-    {
-        private readonly string _key;
-       // private readonly IUserRepository _userRepo;
-        public Auth(string key)
-        {
-           // _userRepo = new UserRepository();
-            _key = key;
-        }
-        public (bool, string) Authentication(string userName, string password)
+    public class TokenGeneration
+    {     
+       
+        public string TokenGenration(User user, string secretKey)
         { 
-        bool isSuccess= true;
-        User user = new User() { 
-            UserName = "PraveshKumar"
-        };
-       // (isSuccess, user) = await _userRepo.VerifyUser(userName, password);
-            if (!isSuccess)
-            {
-                return (false, "");
-            }
             // Create security token handler
             var tokenHandler = new JwtSecurityTokenHandler();
             // Create private key to Encrypted
-            var tokenKey = Encoding.ASCII.GetBytes(_key);
+            var tokenKey = Encoding.ASCII.GetBytes(secretKey);
 
             // Create Jwt Decsriptor
             var tokenDescriptor = new SecurityTokenDescriptor()
@@ -50,11 +35,10 @@ namespace ProjectManagementTracketAPI.Auth
                             new SymmetricSecurityKey(tokenKey), SecurityAlgorithms.HmacSha256Signature
                 )
             };
-
             // Create Token 
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
-         return (isSuccess, tokenHandler.WriteToken(token));
+         return (tokenHandler.WriteToken(token));
         } 
     }
 }

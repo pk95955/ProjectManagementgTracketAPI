@@ -51,12 +51,7 @@ namespace MemberAssigendTask.Cosumer
             
             _db.AssigningTask.Add(assigningTask);
            await  _db.SaveChangesAsync();
-            //ResponseDTO responseDTO = new ResponseDTO()
-            //{
-            //    IsSuccess = true,
-            //    Message = "Task Assigned Successfully"
-
-            //};
+             
         }
 
     }

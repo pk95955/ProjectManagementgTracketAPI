@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProjectManagementTracketAPI.Repository;
 using System;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MemberAssigendTask.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class MemberController : ControllerBase
     {
@@ -18,8 +19,16 @@ namespace MemberAssigendTask.Controllers
             _memberRepo = memberRepo;
            
         }
-        [HttpGet("get-task")]
-        public  void GetAssinedTask()
+        [Authorize]
+        [HttpGet("list")]
+        public async Task<IActionResult> ReadMessageFromRabbitQueue(int memberId)
+        {             
+            return Ok(await _memberRepo.GetAssigedTask(memberId));
+            
+        }
+        [HttpGet("read-message")]
+       
+        public void GetAssinedTask()
         {
             try
             {
@@ -27,10 +36,10 @@ namespace MemberAssigendTask.Controllers
             }
             catch (Exception ex)
             {
-                var exce = ex;
+               
                 throw ex;
             }
         }
-        
+
     }
 }

@@ -23,5 +23,6 @@ namespace ProjectManagementTracketAPI.DbContexts
             modelBuilder.Entity<SkillsTransaction>()
                 .HasKey(o => new { o.SkillId, o.MemberId });
         }
+        public DbSet<ExceptionLog> ExceptionLog { get;set; }
     }
 }

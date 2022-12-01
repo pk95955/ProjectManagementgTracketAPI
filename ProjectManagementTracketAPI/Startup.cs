@@ -10,14 +10,15 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using ProjectManagementTracketAPI.Auth;
 using ProjectManagementTracketAPI.DbContexts;
 using ProjectManagementTracketAPI.Repository;
+using ProjectManagementTracketAPI.ExceptionHnadler;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ProjectManagementTracketAPI.ExceptionHandler;
 
 namespace ProjectManagementTracketAPI
 {
@@ -35,14 +36,23 @@ namespace ProjectManagementTracketAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContexts>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
+            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")),
+            ServiceLifetime.Singleton
             );
-
+            var key = Configuration.GetSection("SecretKey").Value;
+            services.AddSingleton<ILog, LogNLog>();
             IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
             services.AddSingleton(mapper);
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            services.AddScoped<IMemberRepository, MemberRepository>();
-            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IMemberRepository, MemberRepository>();           
+            services.AddSingleton<IUserRepository>(sp =>
+                ActivatorUtilities.CreateInstance<UserRepository>(sp, key)
+            );
+            // You can use the implementation factory delegate when adding your service.
+            //services.AddSingleton<ISecurityCache>(sp =>
+            //    new SecurityCache(AppId, sp.GetService<IService1>(), sp.GetService<IService2>())
+            //);
+
 
             services.AddSwaggerGen(c =>
             {
@@ -105,8 +115,7 @@ namespace ProjectManagementTracketAPI
             });
             services.AddControllers();
 
-            // get secret key from app setting 
-            var key = Configuration.GetSection("SecretKey").Value;
+            // get secret key from app setting         
            
             services.AddAuthentication(x =>
             {
@@ -125,13 +134,13 @@ namespace ProjectManagementTracketAPI
                 };
             });
             //IUserRepository userRepo = new UserRepository();
-            services.AddSingleton<IAuth>(new Auth.Auth(key));
+           // services.AddSingleton<IAuth>(new Auth.Auth(key));
 
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILog logger)
         {
             if (env.IsDevelopment())
             {
@@ -142,6 +151,7 @@ namespace ProjectManagementTracketAPI
             app.UseCors(policyName);
             app.UseAuthentication();
             app.UseAuthorization();
+            app.ConfigureExceptionHandler(logger);
 
             app.UseEndpoints(endpoints =>
             {

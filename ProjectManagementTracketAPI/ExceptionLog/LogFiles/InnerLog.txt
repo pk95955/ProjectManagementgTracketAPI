@@ -1,0 +1,106 @@
+2022-12-01 18:09:31.4526 Info Message Template Auto Format enabled
+2022-12-01 18:09:31.4908 Info Loading assembly: NLog.Extended
+2022-12-01 18:09:32.1392 Trace Try find 'NLog.Extended' in current domain
+2022-12-01 18:09:32.1720 Trace Haven't found' 'NLog.Extended' in current domain
+2022-12-01 18:09:32.2064 Warn Error has been raised. Exception: NLog.NLogConfigurationException: Error loading extensions: NLog.Extended
+ ---> System.IO.FileNotFoundException: Could not load file or assembly 'NLog.Extended, Culture=neutral, PublicKeyToken=null'. The system cannot find the file specified.
+File name: 'NLog.Extended, Culture=neutral, PublicKeyToken=null'
+   at System.Reflection.RuntimeAssembly.nLoad(AssemblyName fileName, String codeBase, RuntimeAssembly assemblyContext, StackCrawlMark& stackMark, Boolean throwOnFileNotFound, AssemblyLoadContext assemblyLoadContext)
+   at System.Reflection.RuntimeAssembly.InternalLoadAssemblyName(AssemblyName assemblyRef, StackCrawlMark& stackMark, AssemblyLoadContext assemblyLoadContext)
+   at System.Reflection.Assembly.Load(String assemblyString)
+   at NLog.Internal.AssemblyHelpers.LoadFromName(String assemblyName)
+   at NLog.Config.LoggingConfigurationParser.ParseExtensionWithAssembly(String assemblyName, String prefix)
+
+
+   --- End of inner exception stack trace ---
+2022-12-01 18:09:32.2931 Debug ScanAssembly('NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c')
+2022-12-01 18:09:33.0115 Debug Setting 'NLog.Targets.FileTarget.name' to 'logfile'
+2022-12-01 18:09:33.0371 Debug Setting 'NLog.Targets.FileTarget.fileName' to 'D:/Local_Project/ProjectManagementTracker/ProjectManagementTracketAPI/ExceptionLog/LogFiles/${shortdate}_log.txt'
+2022-12-01 18:09:33.0371 Trace FindReachableObject<NLog.Internal.IRenderable>:
+2022-12-01 18:09:33.0483 Trace Scanning ShortDateLayoutRenderer 'Layout Renderer: ${shortdate}'
+2022-12-01 18:09:33.0483 Debug Setting 'NLog.Targets.FileTarget.layout' to '${longdate} ${level:uppercase=true} ${message}'
+2022-12-01 18:09:33.0483 Trace FindReachableObject<NLog.Internal.IRenderable>:
+2022-12-01 18:09:33.0483 Trace Scanning LongDateLayoutRenderer 'Layout Renderer: ${longdate}'
+2022-12-01 18:09:33.0483 Trace FindReachableObject<NLog.Internal.IRenderable>:
+2022-12-01 18:09:33.0483 Trace Scanning LevelLayoutRenderer 'Layout Renderer: ${level}'
+2022-12-01 18:09:33.0483 Trace FindReachableObject<NLog.Internal.IRenderable>:
+2022-12-01 18:09:33.0483 Trace Scanning MessageLayoutRenderer 'Layout Renderer: ${message}'
+2022-12-01 18:09:33.0483 Debug Adding target FileTarget(Name=logfile)
+2022-12-01 18:09:33.0483 Info Registered target FileTarget(Name=logfile)
+2022-12-01 18:09:33.0483 Trace ParseRulesElement
+2022-12-01 18:09:33.0911 Debug Watching file-filter 'NLog.config' in directory: D:\Local_Project\ProjectManagementTracker\ProjectManagementTracketAPI\bin\Debug\netcoreapp3.1
+2022-12-01 18:09:33.0911 Debug --- NLog configuration dump ---
+2022-12-01 18:09:33.0925 Debug Targets:
+2022-12-01 18:09:33.0925 Debug FileTarget(Name=logfile)
+2022-12-01 18:09:33.0925 Debug Rules:
+2022-12-01 18:09:33.0925 Debug logNamePattern: (:All) levels: [ Debug Info Warn Error Fatal ] writeTo: [ logfile ]
+2022-12-01 18:09:33.0925 Debug --- End of NLog configuration dump ---
+2022-12-01 18:09:33.0925 Trace FindReachableObject<System.Object>:
+2022-12-01 18:09:33.0925 Trace Scanning LoggingRule 'logNamePattern: (:All) levels: [ Debug Info Warn Error Fatal ] writeTo: [ logfile ]'
+2022-12-01 18:09:33.0925 Trace  Scanning Property Targets 'System.Collections.Generic.List`1[NLog.Targets.Target]' System.Collections.Generic
+2022-12-01 18:09:33.0925 Trace  Scanning FileTarget 'FileTarget(Name=logfile)'
+2022-12-01 18:09:33.0925 Trace   Scanning Property FileName 'D:/Local_Project/ProjectManagementTracker/ProjectManagementTracketAPI/ExceptionLog/LogFiles/${shortdate}_log.txt' NLog.Layouts
+2022-12-01 18:09:33.0925 Trace   Scanning SimpleLayout 'D:/Local_Project/ProjectManagementTracker/ProjectManagementTracketAPI/ExceptionLog/LogFiles/${shortdate}_log.txt'
+2022-12-01 18:09:33.0925 Trace    Scanning Property LayoutRenderers 'NLog.LayoutRenderers.LayoutRenderer[]' System.Collections.Generic
+2022-12-01 18:09:33.0925 Trace    Scanning LiteralLayoutRenderer 'Layout Renderer: ${literal}'
+2022-12-01 18:09:33.0925 Trace    Scanning ShortDateLayoutRenderer 'Layout Renderer: ${shortdate}'
+2022-12-01 18:09:33.0925 Trace    Scanning LiteralLayoutRenderer 'Layout Renderer: ${literal}'
+2022-12-01 18:09:33.0925 Trace   Scanning Property Layout '${longdate} ${level:uppercase=true} ${message}' NLog.Layouts
+2022-12-01 18:09:33.0925 Trace   Scanning SimpleLayout '${longdate} ${level:uppercase=true} ${message}'
+2022-12-01 18:09:33.0925 Trace    Scanning Property LayoutRenderers 'NLog.LayoutRenderers.LayoutRenderer[]' System.Collections.Generic
+2022-12-01 18:09:33.0925 Trace    Scanning LongDateLayoutRenderer 'Layout Renderer: ${longdate}'
+2022-12-01 18:09:33.0925 Trace    Scanning LiteralLayoutRenderer 'Layout Renderer: ${literal}'
+2022-12-01 18:09:33.0925 Trace    Scanning LevelLayoutRenderer 'Layout Renderer: ${level}'
+2022-12-01 18:09:33.0925 Trace    Scanning LiteralLayoutRenderer 'Layout Renderer: ${literal}'
+2022-12-01 18:09:33.0925 Trace    Scanning MessageLayoutRenderer 'Layout Renderer: ${message}'
+2022-12-01 18:09:33.0925 Trace   Scanning Property LineEnding 'Default' NLog.Targets
+2022-12-01 18:09:33.0925 Trace  Scanning Property ChildRules 'System.Collections.Generic.List`1[NLog.Config.LoggingRule]' System.Collections.Generic
+2022-12-01 18:09:33.1083 Trace  Scanning Property Filters 'System.Collections.Generic.List`1[NLog.Filters.Filter]' System.Collections.Generic
+2022-12-01 18:09:33.1083 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=D:\Local_Project\ProjectManagementTracker\ProjectManagementTracketAPI\bin\Debug\netcoreapp3.1\NLog.config
+2022-12-01 18:09:33.1083 Debug Unused target checking is started... Rule Count: 1, Target Count: 1
+2022-12-01 18:09:33.1083 Debug Unused target checking is completed. Total Rule Count: 1, Total Target Count: 1, Unused Target Count: 0
+2022-12-01 18:09:33.1083 Trace Initializing Layout Renderer: ${message}
+2022-12-01 18:09:33.1083 Trace Initializing Layout Renderer: ${literal}
+2022-12-01 18:09:33.1083 Trace Initializing Layout Renderer: ${level}
+2022-12-01 18:09:33.1083 Trace Initializing Layout Renderer: ${literal}
+2022-12-01 18:09:33.1083 Trace Initializing Layout Renderer: ${longdate}
+2022-12-01 18:09:33.1083 Trace Initializing ${longdate} ${level:uppercase=true} ${message}
+2022-12-01 18:09:33.1270 Trace FindReachableObject<NLog.Internal.IRenderable>:
+2022-12-01 18:09:33.1270 Trace Scanning SimpleLayout '${longdate} ${level:uppercase=true} ${message}'
+2022-12-01 18:09:33.1270 Trace  Scanning Property LayoutRenderers 'NLog.LayoutRenderers.LayoutRenderer[]' System.Collections.Generic
+2022-12-01 18:09:33.1270 Trace  Scanning LongDateLayoutRenderer 'Layout Renderer: ${longdate}'
+2022-12-01 18:09:33.1270 Trace  Scanning LiteralLayoutRenderer 'Layout Renderer: ${literal}'
+2022-12-01 18:09:33.1270 Trace  Scanning LevelLayoutRenderer 'Layout Renderer: ${level}'
+2022-12-01 18:09:33.1270 Trace  Scanning LiteralLayoutRenderer 'Layout Renderer: ${literal}'
+2022-12-01 18:09:33.1270 Trace  Scanning MessageLayoutRenderer 'Layout Renderer: ${message}'
+2022-12-01 18:09:33.1270 Trace Initializing Layout Renderer: ${literal}
+2022-12-01 18:09:33.1270 Trace Initializing Layout Renderer: ${shortdate}
+2022-12-01 18:09:33.1270 Trace Initializing Layout Renderer: ${literal}
+2022-12-01 18:09:33.1270 Trace Initializing D:/Local_Project/ProjectManagementTracker/ProjectManagementTracketAPI/ExceptionLog/LogFiles/${shortdate}_log.txt
+2022-12-01 18:09:33.1270 Trace FindReachableObject<NLog.Internal.IRenderable>:
+2022-12-01 18:09:33.1270 Trace Scanning SimpleLayout 'D:/Local_Project/ProjectManagementTracker/ProjectManagementTracketAPI/ExceptionLog/LogFiles/${shortdate}_log.txt'
+2022-12-01 18:09:33.1270 Trace  Scanning Property LayoutRenderers 'NLog.LayoutRenderers.LayoutRenderer[]' System.Collections.Generic
+2022-12-01 18:09:33.1270 Trace  Scanning LiteralLayoutRenderer 'Layout Renderer: ${literal}'
+2022-12-01 18:09:33.1270 Trace  Scanning ShortDateLayoutRenderer 'Layout Renderer: ${shortdate}'
+2022-12-01 18:09:33.1270 Trace  Scanning LiteralLayoutRenderer 'Layout Renderer: ${literal}'
+2022-12-01 18:09:33.1270 Trace Initializing FileTarget(Name=logfile)
+2022-12-01 18:09:33.1270 Trace FindReachableObject<NLog.Layouts.Layout>:
+2022-12-01 18:09:33.1270 Trace Scanning FileTarget 'FileTarget(Name=logfile)'
+2022-12-01 18:09:33.1270 Trace  Scanning Property FileName 'D:/Local_Project/ProjectManagementTracker/ProjectManagementTracketAPI/ExceptionLog/LogFiles/${shortdate}_log.txt' NLog.Layouts
+2022-12-01 18:09:33.1270 Trace  Scanning SimpleLayout 'D:/Local_Project/ProjectManagementTracker/ProjectManagementTracketAPI/ExceptionLog/LogFiles/${shortdate}_log.txt'
+2022-12-01 18:09:33.1270 Trace  Scanning Property Layout '${longdate} ${level:uppercase=true} ${message}' NLog.Layouts
+2022-12-01 18:09:33.1270 Trace  Scanning SimpleLayout '${longdate} ${level:uppercase=true} ${message}'
+2022-12-01 18:09:33.1270 Trace  Scanning Property LineEnding 'Default' NLog.Targets
+2022-12-01 18:09:33.1270 Trace FileTarget(Name=logfile) has 2 layouts
+2022-12-01 18:09:33.1270 Trace FileTarget(Name=logfile): Using appenderFactory: NLog.Internal.FileAppenders.SingleProcessFileAppender+Factory
+2022-12-01 18:09:33.1484 Info Configuration initialized.
+2022-12-01 18:09:33.2868 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.1.0.1480. Product version: 5.1.0+5e6708d4d288e03b3ddf321838ec14907016f1b8. GlobalAssemblyCache: False
+2022-12-01 18:09:33.2868 Debug Targets configured when LogLevel >= Debug for Logger: ProjectManagementTracketAPI.ExceptionHandler.LogNLog
+2022-12-01 18:09:33.2868 Debug Logger ProjectManagementTracketAPI.ExceptionHandler.LogNLog [Debug] => logfile
+2022-12-01 18:09:33.2868 Debug Logger ProjectManagementTracketAPI.ExceptionHandler.LogNLog [Info] => logfile
+2022-12-01 18:09:33.2868 Debug Logger ProjectManagementTracketAPI.ExceptionHandler.LogNLog [Warn] => logfile
+2022-12-01 18:09:33.2868 Debug Logger ProjectManagementTracketAPI.ExceptionHandler.LogNLog [Error] => logfile
+2022-12-01 18:09:33.2868 Debug Logger ProjectManagementTracketAPI.ExceptionHandler.LogNLog [Fatal] => logfile
+2022-12-01 18:09:33.3993 Debug FileTarget(Name=logfile): Preparing for new file: 'D:/Local_Project/ProjectManagementTracker/ProjectManagementTracketAPI/ExceptionLog/LogFiles/2022-12-01_log.txt'
+2022-12-01 18:09:33.4202 Debug FileTarget(Name=logfile): Creating file appender: 'D:/Local_Project/ProjectManagementTracker/ProjectManagementTracketAPI/ExceptionLog/LogFiles/2022-12-01_log.txt'
+2022-12-01 18:09:33.4231 Trace FileTarget(Name=logfile): Opening D:/Local_Project/ProjectManagementTracker/ProjectManagementTracketAPI/ExceptionLog/LogFiles/2022-12-01_log.txt with allowFileSharedWriting=False

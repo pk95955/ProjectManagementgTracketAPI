@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace ProjectManagementTracketAPI.Controllers.V1
 {
-    [Route("api/v1/[controller]")]
+    [Route("projectmanagement/api/v1/manager")]
     [ApiController]
     public class ManagerController : ControllerBase
     {
@@ -72,7 +72,7 @@ namespace ProjectManagementTracketAPI.Controllers.V1
         }
         [Authorize]
         [HttpGet]
-        [Route("list")]
+        [Route("list/{memberDetails}")]
         public async Task<IEnumerable<MemberDTO>> GetMemberDetails()
         {
            return await _memberRepo.GetMemberDetails();
@@ -82,6 +82,7 @@ namespace ProjectManagementTracketAPI.Controllers.V1
         [Route("assign-task")]
         public async Task<ResponseDTO> AssignTask([FromBody] AssigningTaskDTO assigningTaskDTO)
         {
+            int a = Convert.ToInt32("sdfwf");
             return await _memberRepo.AssigningTask(assigningTaskDTO);
 
         }

@@ -1,17 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProjectManagementTracketAPI.Models;
 using ProjectManagementTracketAPI.Models.DTO;
 using ProjectManagementTracketAPI.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace ProjectManagementTracketAPI.Controllers.V1
 {
-    [Route("api/v1/[controller]")]
+    [Route("projectmanagement/api/v1/member")]
     [ApiController]
     public class MemberController : ControllerBase
     {
