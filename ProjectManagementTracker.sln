@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31729.503
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectManagementTracketAPI", "ProjectManagementTracketAPI\ProjectManagementTracketAPI.csproj", "{BA1F9CEC-EE65-4042-967A-A9CC56541479}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectManagementTrackerAPI", "ProjectManagementTracketAPI\ProjectManagementTrackerAPI.csproj", "{BA1F9CEC-EE65-4042-967A-A9CC56541479}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "APiGateway", "APiGateway", "{98C99F2B-C7A2-4319-A667-637AD72C2E04}"
 EndProject

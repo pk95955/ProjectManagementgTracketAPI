@@ -22,12 +22,14 @@ namespace ProjectManagementTracketAPI.Token
             var tokenKey = Encoding.ASCII.GetBytes(secretKey);
 
             // Create Jwt Decsriptor
+            string roleName = user.UserId == 1 ? "manager" : "member";
             var tokenDescriptor = new SecurityTokenDescriptor()
             {
                 Subject = new ClaimsIdentity(
                         new Claim[]
                         {
-                            new Claim(ClaimTypes.Name, user.UserName)
+                            new Claim(ClaimTypes.Name, user.UserName),
+                            new Claim(ClaimTypes.Role,roleName)
                         }
                 ),
                 Expires = DateTime.UtcNow.AddHours(1),

@@ -6458,9 +6458,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Local_Project\\ProjectManagementTracker\\ProjectManagementTracketAPI\\ProjectManagementTracketAPI.csproj",
-      "projectName": "ProjectManagementTracketAPI",
-      "projectPath": "D:\\Local_Project\\ProjectManagementTracker\\ProjectManagementTracketAPI\\ProjectManagementTracketAPI.csproj",
+      "projectUniqueName": "D:\\Local_Project\\ProjectManagementTracker\\ProjectManagementTracketAPI\\ProjectManagementTrackerAPI.csproj",
+      "projectName": "ProjectManagementTrackerAPI",
+      "projectPath": "D:\\Local_Project\\ProjectManagementTracker\\ProjectManagementTracketAPI\\ProjectManagementTrackerAPI.csproj",
       "packagesPath": "C:\\Users\\cogdotnet1719\\.nuget\\packages\\",
       "outputPath": "D:\\Local_Project\\ProjectManagementTracker\\ProjectManagementTracketAPI\\obj\\",
       "projectStyle": "PackageReference",

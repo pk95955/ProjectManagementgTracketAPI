@@ -20,8 +20,8 @@ namespace ProjectManagementTracketAPI.Controllers.V1
         }
         [HttpGet]
         [Route("list")]
-        [Authorize]
-        public async Task<AssigningTaskDTO> GetAssignedTask(int memberId)
+        [Authorize(Roles = "member")]
+        public async Task<ResponseDTO> GetAssignedTask(int memberId)
         {
             return await _memberRepo.GetAssigedTask(memberId);
         }

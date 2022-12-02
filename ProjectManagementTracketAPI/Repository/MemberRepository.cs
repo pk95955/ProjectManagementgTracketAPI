@@ -1,6 +1,5 @@
 ﻿
 using ProjectManagementTracketAPI.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,9 +7,9 @@ using AutoMapper;
 using ProjectManagementTracketAPI.DbContexts;
 using ProjectManagementTracketAPI.Models.DTO;
 using Microsoft.EntityFrameworkCore;
-using RabbitMQ.Client;
-using System.Text;
-using Newtonsoft.Json;
+using ProjectManagementTracketAPI.RabbitMQSender;
+using System;
+using ProjectManagementTrackerAPI.BL;
 
 namespace ProjectManagementTracketAPI.Repository
 {
@@ -18,63 +17,53 @@ namespace ProjectManagementTracketAPI.Repository
     {
         private readonly ApplicationDbContexts _db;
         private IMapper _mapper;
-        public MemberRepository(ApplicationDbContexts db, IMapper mapper)
+        private string _rabbitMQQueueName;
+        private string _rabbitMQConstring;
+        public MemberRepository(ApplicationDbContexts db, IMapper mapper, string rabbitMQQueueName, string rabbitMQConstring)
         {
             _db = db;
             _mapper = mapper;
+            _rabbitMQQueueName = rabbitMQQueueName;
+            _rabbitMQConstring = rabbitMQConstring;
         }
-
-
         public async Task<IEnumerable<MemberDTO>> GetMemberDetails()
         {
            IEnumerable<Member> membersList =  await _db.Members.OrderByDescending(r=>r.ExperienceInYear).ToListAsync();
             IEnumerable<MemberDTO> memberDTOList = _mapper.Map<IEnumerable<MemberDTO>>(membersList);
             foreach (MemberDTO item in memberDTOList)
             {
-                //List<SkillsTransaction> skillSetList =   await _db.SkillsTransaction.Where(r => r.MemberId == item.MemberId).ToListAsync();
                 var result = await (from skillTrans in _db.SkillsTransaction
                               join skillMaster in _db.SkillsMaster
                               on skillTrans.SkillId equals skillMaster.SkillId
                               where skillTrans.MemberId == item.MemberId
                               select new
                               {
-                                  SkillId = skillTrans.SkillId,
-                                  SkillName = skillMaster.SkillName
+                                  SkillsId = skillTrans.SkillId,
+                                  Skills = skillMaster.SkillName
                               }).ToListAsync();
                 List<SkillSetDTO> skillSetDTOList = new List<SkillSetDTO>();
                 foreach (var i in result)
                 {
                     SkillSetDTO skillDTO = new SkillSetDTO()
                     {
-                        SkillId = i.SkillId,
-                        SkillName = i.SkillName
+                        SkillId = i.SkillsId,
+                        SkillName = i.Skills
                     };
                     skillSetDTOList.Add(skillDTO);
-
-                }
-               // List<SkillSetDTO> skillSetDTOList = result;// _mapper.Map<List<SkillSetDTO>>(skillSetList);
-               //if (skillSetList.Any())
-               //{
+                }               
                 item.SkillSet = skillSetDTOList;
-               //}
+                
             }
             return memberDTOList;
 
         } 
-        public async Task<MemberDTO> AddMember(MemberDTO memberDTO)
+        public async Task<MemberDTO> AddMember(RequestMemberDTO rmemberDTO)
         {
-            Member member = _mapper.Map<MemberDTO, Member>(memberDTO);
-            List<SkillSetDTO> skillsSet = memberDTO.SkillSet;
 
-            if (member.Id > 0)
-            {
-                _db.Members.Update(member);
-             
-            }
-            else
-            {
+            Member member = _mapper.Map<RequestMemberDTO, Member>(rmemberDTO);
+            List<RequestSkillSetDTO> skillsSet = rmemberDTO.SkillSet;
                 _db.Members.Add(member);
-                foreach (SkillSetDTO item in skillsSet)
+                foreach (RequestSkillSetDTO item in skillsSet)
                 {
                     SkillsTransaction skillsTransaction = new SkillsTransaction
                     {
@@ -83,17 +72,17 @@ namespace ProjectManagementTracketAPI.Repository
 
                     };
                     _db.SkillsTransaction.Add(skillsTransaction);
-
-                }
-               
-            }
+                }              
+           
             await _db.SaveChangesAsync();
             return _mapper.Map<Member, MemberDTO>(member);
             
         }
-
         public async Task<ResponseDTO> AssigningTask(AssigningTaskDTO assigningTaskDTO)
         {
+           
+           Member member =  _db.Members.Where(r => r.MemberId == assigningTaskDTO.MemberId).FirstOrDefault();
+            Validation.ValidateProjectAndTaskEnddate(member.EndDate, assigningTaskDTO.TaskEndDate);
             AssigningTask assigningTask = _mapper.Map<AssigningTaskDTO, AssigningTask>(assigningTaskDTO);
             _db.AssigningTask.Add(assigningTask);
             await _db.SaveChangesAsync();
@@ -103,41 +92,50 @@ namespace ProjectManagementTracketAPI.Repository
                 Message ="Task Assigned Successfully"
 
             };
-            // published message rabbit mq
-            var factory = new ConnectionFactory
-            {
-                Uri = new Uri("amqp://guest:guest@localhost:5672")
-
-            };
-            using var connection = factory.CreateConnection();
-            using var channel = connection.CreateModel();
-            channel.QueueDeclare("assinged-task-queue", 
-                durable: true, exclusive: false, autoDelete: false,
-                
-                arguments: null) ;
-          //  var message = new { Name = "Message-assignedtask", Message = "hello world" };
-            var body = Encoding.ASCII.GetBytes(JsonConvert.SerializeObject(assigningTask));
-            channel.BasicPublish("", "assinged-task-queue", null, body);
-            //
+            // publish message to rabbitmq queue
+            new RabbitMessageSender().PublishMessage(_rabbitMQConstring, _rabbitMQQueueName, assigningTask);
+          
             return responseDTO;
         }
-        public async Task<AssigningTaskDTO> GetAssigedTask(int MemberId)
-        {
+        public async Task<ResponseDTO> GetAssigedTask(int MemberId)
+        { 
             AssigningTask assigningTask = new AssigningTask();
+            ResponseDTO responseDTO = new ResponseDTO();
             assigningTask =  await _db.AssigningTask.FirstOrDefaultAsync(r => r.MemberId == MemberId);
-            AssigningTaskDTO assigningDTO=   _mapper.Map<AssigningTask, AssigningTaskDTO>(assigningTask);
-            return assigningDTO;
+            if (assigningTask != null)
+            {
+                AssigningTaskDTO assigningDTO = _mapper.Map<AssigningTask, AssigningTaskDTO>(assigningTask);
+                responseDTO.Result = assigningDTO;
+                responseDTO.IsSuccess = true;
+            }
+            else
+            {
+                responseDTO.IsSuccess = false;
+                responseDTO.Message = "There is no record found.";
+            }
+           
+            return responseDTO;
             
         }
         public async Task<ResponseDTO> UpdateAllocation(RequestUpdateAllocationDTO requestUpdateAllocationDTO)
         {
-          Member member =  _db.Members.Where(r => r.MemberId == requestUpdateAllocationDTO.MemberId).FirstOrDefault();
-            member.AllocationPercentage = requestUpdateAllocationDTO.AllocationPercentage;
+            short allocationPercentage;
+            Member member = _db.Members.Where(r => r.MemberId == requestUpdateAllocationDTO.MemberId).FirstOrDefault();
+            if(member.EndDate > DateTime.Now)
+            {
+                allocationPercentage = 100;
+            }
+            else
+            {
+                allocationPercentage = 0;
+            }
+            //Member member =  _db.Members.Where(r => r.MemberId == requestUpdateAllocationDTO.MemberId).FirstOrDefault();
+            member.AllocationPercentage = allocationPercentage;
            await  _db.SaveChangesAsync();
             ResponseDTO responseDTO = new ResponseDTO()
             {
                 IsSuccess = true,
-                Message = "Task Assigned Successfully"
+                Message = "Task Assigned updated Successfully"
 
             };
             return responseDTO;

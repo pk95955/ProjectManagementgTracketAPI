@@ -9,7 +9,6 @@ namespace ProjectManagementTracketAPI.Controllers.V1
     [ApiController]
     public class AuthenticationController : ControllerBase
     {
-       // private readonly IAuth auth;
         private readonly IUserRepository _userRepo;
         public AuthenticationController(  IUserRepository userRep )
         {

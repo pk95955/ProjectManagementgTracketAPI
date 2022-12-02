@@ -35,5 +35,4 @@ D:\Local_Project\ProjectManagementTracker\APIGateway\bin\Debug\netcoreapp3.1\Mic
 D:\Local_Project\ProjectManagementTracker\APIGateway\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 D:\Local_Project\ProjectManagementTracker\APIGateway\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Tokens.dll
 D:\Local_Project\ProjectManagementTracker\APIGateway\bin\Debug\netcoreapp3.1\System.IdentityModel.Tokens.Jwt.dll
-D:\Local_Project\ProjectManagementTracker\APIGateway\obj\Debug\netcoreapp3.1\APIGateway.csproj.AssemblyReference.cache
 D:\Local_Project\ProjectManagementTracker\APIGateway\obj\Debug\netcoreapp3.1\APIGateway.csproj.CopyComplete

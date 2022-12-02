@@ -14,6 +14,7 @@ namespace ProjectManagementTracketAPI
             var mappingConfig = new MapperConfiguration(config =>
              {
                  config.CreateMap<MemberDTO, Member>();
+                 config.CreateMap<RequestMemberDTO, Member>();
                  config.CreateMap<Member, MemberDTO> ();
                  config.CreateMap<AssigningTaskDTO, AssigningTask> ();
                  config.CreateMap<AssigningTask, AssigningTaskDTO> ();

@@ -44,7 +44,12 @@ namespace ProjectManagementTracketAPI
             IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
             services.AddSingleton(mapper);
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            services.AddScoped<IMemberRepository, MemberRepository>();           
+            string rabbitMQName = Configuration.GetSection("RabbitMQName").Value; 
+            string rabbitMQconnection = Configuration.GetSection("RabbitMQConnectionString").Value;
+            services.AddSingleton<IMemberRepository>(sp =>
+               ActivatorUtilities.CreateInstance<MemberRepository>(sp, rabbitMQName, rabbitMQconnection)
+           );
+                  
             services.AddSingleton<IUserRepository>(sp =>
                 ActivatorUtilities.CreateInstance<UserRepository>(sp, key)
             );
@@ -65,8 +70,7 @@ namespace ProjectManagementTracketAPI
                     Name = "JWT Authentication",
                     In = ParameterLocation.Header,
                     Type = SecuritySchemeType.Http,
-                    Scheme = JwtBearerDefaults.AuthenticationScheme,
-                    Description = "Put **_ONLY_** your JWT Bearer token on textbox below!",
+                    Scheme = JwtBearerDefaults.AuthenticationScheme,   
 
                     Reference = new OpenApiReference
                     {
@@ -74,13 +78,7 @@ namespace ProjectManagementTracketAPI
                         Type = ReferenceType.SecurityScheme
                     }
                 };
-
-                //c.AddSecurityDefinition(jwtSecurityScheme.Reference.Id, jwtSecurityScheme);
-
-                //c.AddSecurityRequirement(new OpenApiSecurityRequirement
-                //{
-                //    { jwtSecurityScheme, Array.Empty<string>() }
-                //});
+ 
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Description = "JWT Authorization header using the Bearer scheme (Example: 'Bearer 12345abcdef')",
@@ -132,11 +130,7 @@ namespace ProjectManagementTracketAPI
                     ValidateAudience = false,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(key))
                 };
-            });
-            //IUserRepository userRepo = new UserRepository();
-           // services.AddSingleton<IAuth>(new Auth.Auth(key));
-
-
+            }); 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
