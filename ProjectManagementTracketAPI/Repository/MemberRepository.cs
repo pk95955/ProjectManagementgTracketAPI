@@ -97,11 +97,14 @@ namespace ProjectManagementTracketAPI.Repository
           
             return responseDTO;
         }
-        public async Task<ResponseDTO> GetAssigedTask(int MemberId)
-        { 
+        public async Task<ResponseDTO> GetAssigedTask()
+        {
+
+          var userName =   Users.Current;
+           User user =  _db.User.FirstOrDefault(r => r.UserName == userName);
             AssigningTask assigningTask = new AssigningTask();
             ResponseDTO responseDTO = new ResponseDTO();
-            assigningTask =  await _db.AssigningTask.FirstOrDefaultAsync(r => r.MemberId == MemberId);
+            assigningTask =  await _db.AssigningTask.FirstOrDefaultAsync(r => r.MemberId == user.MemberId);
             if (assigningTask != null)
             {
                 AssigningTaskDTO assigningDTO = _mapper.Map<AssigningTask, AssigningTaskDTO>(assigningTask);

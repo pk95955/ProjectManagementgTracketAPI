@@ -49,7 +49,8 @@ namespace ProjectManagementTracketAPI
             services.AddSingleton<IMemberRepository>(sp =>
                ActivatorUtilities.CreateInstance<MemberRepository>(sp, rabbitMQName, rabbitMQconnection)
            );
-                  
+            services.AddMemoryCache();
+           
             services.AddSingleton<IUserRepository>(sp =>
                 ActivatorUtilities.CreateInstance<UserRepository>(sp, key)
             );
@@ -113,8 +114,11 @@ namespace ProjectManagementTracketAPI
             });
             services.AddControllers();
 
+            services.AddSingleton<Microsoft.AspNetCore.Http.IHttpContextAccessor,
+               Microsoft.AspNetCore.Http.HttpContextAccessor>();
+
             // get secret key from app setting         
-           
+
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -156,6 +160,8 @@ namespace ProjectManagementTracketAPI
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Project Management Tracket v1");
             });
+            System.Web.HttpContext.Configure(app.ApplicationServices.
+                GetRequiredService<Microsoft.AspNetCore.Http.IHttpContextAccessor>());
         }
     }
 }

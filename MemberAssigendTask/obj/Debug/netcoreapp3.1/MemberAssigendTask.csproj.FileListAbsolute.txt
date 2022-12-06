@@ -8,7 +8,6 @@ D:\Local_Project\ProjectManagementTracker\MemberAssigendTask\bin\Debug\netcoreap
 D:\Local_Project\ProjectManagementTracker\MemberAssigendTask\bin\Debug\netcoreapp3.1\MemberAssigendTask.pdb
 D:\Local_Project\ProjectManagementTracker\MemberAssigendTask\bin\Debug\netcoreapp3.1\RabbitMQ.Client.dll
 D:\Local_Project\ProjectManagementTracker\MemberAssigendTask\bin\Debug\netcoreapp3.1\System.Threading.Channels.dll
-D:\Local_Project\ProjectManagementTracker\MemberAssigendTask\obj\Debug\netcoreapp3.1\MemberAssigendTask.csproj.AssemblyReference.cache
 D:\Local_Project\ProjectManagementTracker\MemberAssigendTask\obj\Debug\netcoreapp3.1\MemberAssigendTask.GeneratedMSBuildEditorConfig.editorconfig
 D:\Local_Project\ProjectManagementTracker\MemberAssigendTask\obj\Debug\netcoreapp3.1\MemberAssigendTask.AssemblyInfoInputs.cache
 D:\Local_Project\ProjectManagementTracker\MemberAssigendTask\obj\Debug\netcoreapp3.1\MemberAssigendTask.AssemblyInfo.cs

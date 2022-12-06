@@ -57,10 +57,7 @@ D:\Local_Project\ProjectManagementTracker\ProjectManagementTracketAPI\bin\Debug\
 D:\Local_Project\ProjectManagementTracker\ProjectManagementTracketAPI\bin\Debug\netcoreapp3.1\runtimes\win-arm64\native\sni.dll
 D:\Local_Project\ProjectManagementTracker\ProjectManagementTracketAPI\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\sni.dll
 D:\Local_Project\ProjectManagementTracker\ProjectManagementTracketAPI\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\sni.dll
-D:\Local_Project\ProjectManagementTracker\ProjectManagementTracketAPI\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
-D:\Local_Project\ProjectManagementTracker\ProjectManagementTracketAPI\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 D:\Local_Project\ProjectManagementTracker\ProjectManagementTracketAPI\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-D:\Local_Project\ProjectManagementTracker\ProjectManagementTracketAPI\obj\Debug\netcoreapp3.1\ProjectManagementTrackerAPI.csproj.AssemblyReference.cache
 D:\Local_Project\ProjectManagementTracker\ProjectManagementTracketAPI\obj\Debug\netcoreapp3.1\ProjectManagementTrackerAPI.GeneratedMSBuildEditorConfig.editorconfig
 D:\Local_Project\ProjectManagementTracker\ProjectManagementTracketAPI\obj\Debug\netcoreapp3.1\ProjectManagementTrackerAPI.AssemblyInfoInputs.cache
 D:\Local_Project\ProjectManagementTracker\ProjectManagementTracketAPI\obj\Debug\netcoreapp3.1\ProjectManagementTrackerAPI.AssemblyInfo.cs
@@ -74,3 +71,6 @@ D:\Local_Project\ProjectManagementTracker\ProjectManagementTracketAPI\obj\Debug\
 D:\Local_Project\ProjectManagementTracker\ProjectManagementTracketAPI\obj\Debug\netcoreapp3.1\ProjectManagementTrackerAPI.dll
 D:\Local_Project\ProjectManagementTracker\ProjectManagementTracketAPI\obj\Debug\netcoreapp3.1\ProjectManagementTrackerAPI.pdb
 D:\Local_Project\ProjectManagementTracker\ProjectManagementTracketAPI\obj\Debug\netcoreapp3.1\ProjectManagementTrackerAPI.genruntimeconfig.cache
+D:\Local_Project\ProjectManagementTracker\ProjectManagementTracketAPI\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
+D:\Local_Project\ProjectManagementTracker\ProjectManagementTracketAPI\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
+D:\Local_Project\ProjectManagementTracker\ProjectManagementTracketAPI\obj\Debug\netcoreapp3.1\ProjectManagementTrackerAPI.csproj.AssemblyReference.cache

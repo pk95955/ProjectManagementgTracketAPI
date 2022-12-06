@@ -13,7 +13,7 @@ namespace ProjectManagementTracketAPI.Repository
         Task<MemberDTO> AddMember(RequestMemberDTO member);
         Task<IEnumerable<MemberDTO>> GetMemberDetails();
         Task<ResponseDTO> AssigningTask(AssigningTaskDTO assigningTaskDTO);
-        Task<ResponseDTO> GetAssigedTask(int MemberId);
+        Task<ResponseDTO> GetAssigedTask();
         Task<ResponseDTO> UpdateAllocation(RequestUpdateAllocationDTO requestUpdateAllocationDTO);
        
     }

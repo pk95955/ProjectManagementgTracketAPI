@@ -1,19 +1,13 @@
 ﻿using ProjectManagementTracketAPI.Models;
-using ProjectManagementTracketAPI.Repository;
 using System.Text;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System;
-using System.Threading.Tasks;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
-
 namespace ProjectManagementTracketAPI.Token
 {
     public class TokenGeneration
-    {     
-       
+    {           
         public string TokenGenration(User user, string secretKey)
         { 
             // Create security token handler
