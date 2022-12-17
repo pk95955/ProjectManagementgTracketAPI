@@ -14,12 +14,8 @@ using ProjectManagementTracketAPI.DbContexts;
 using ProjectManagementTracketAPI.Repository;
 using ProjectManagementTracketAPI.ExceptionHnadler;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using ProjectManagementTracketAPI.ExceptionHandler;
-
 namespace ProjectManagementTracketAPI
 {
     public class Startup
@@ -37,21 +33,23 @@ namespace ProjectManagementTracketAPI
         {
             services.AddDbContext<ApplicationDbContexts>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")),
-            ServiceLifetime.Singleton
+            ServiceLifetime.Scoped
             );
             var key = Configuration.GetSection("SecretKey").Value;
+              key = Configuration.GetSection("Jwt")["Key"];
+            var ValidIssuer = Configuration.GetSection("Jwt")["Issuer"];
             services.AddSingleton<ILog, LogNLog>();
             IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
             services.AddSingleton(mapper);
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             string rabbitMQName = Configuration.GetSection("RabbitMQName").Value; 
             string rabbitMQconnection = Configuration.GetSection("RabbitMQConnectionString").Value;
-            services.AddSingleton<IMemberRepository>(sp =>
+            services.AddScoped<IMemberRepository>(sp =>
                ActivatorUtilities.CreateInstance<MemberRepository>(sp, rabbitMQName, rabbitMQconnection)
            );
             services.AddMemoryCache();
            
-            services.AddSingleton<IUserRepository>(sp =>
+            services.AddScoped<IUserRepository>(sp =>
                 ActivatorUtilities.CreateInstance<UserRepository>(sp, key)
             );
             // You can use the implementation factory delegate when adding your service.
@@ -122,16 +120,19 @@ namespace ProjectManagementTracketAPI
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+               // x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(x =>
             {
-                x.RequireHttpsMetadata = false;
-                x.SaveToken = true;
+                // x.RequireHttpsMetadata = false;
+                //x.SaveToken = true;
                 x.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidIssuer = Configuration.GetSection("Jwt:Issuer").Value,
+                    ValidAudience= Configuration.GetSection("Jwt:Aud").Value,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(key))
                 };
             }); 

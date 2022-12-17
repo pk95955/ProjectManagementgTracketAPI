@@ -2,12 +2,15 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
+using ProjectManagementTracketAPI.DbContexts;
+using ProjectManagementTracketAPI.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,10 +31,24 @@ namespace APIGateway
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddOcelot();
+            //services.AddOcelot();
 
             // get secret key from app setting 
             var key = Configuration.GetSection("SecretKey").Value;
+            var issuer = Configuration.GetSection("Jwt")["Issuer"];
+            var aud1 = Configuration.GetSection("Jwt")["Aud1"];
+            var aud2 = Configuration.GetSection("Jwt")["Aud2"];
+            IEnumerable<string> audience =new[] { aud1, aud2 };
+            services.AddDbContext<ApplicationDbContexts>(options =>
+           options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")),
+           ServiceLifetime.Scoped
+           );
+            services.AddMemoryCache();
+            services.AddScoped<IUserRepository>(sp =>
+                ActivatorUtilities.CreateInstance<UserRepository>(sp, key)
+            );
+            services.AddControllers();
+
 
             services.AddAuthentication(x =>
             {
@@ -52,18 +69,22 @@ namespace APIGateway
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public async void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public  void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseRouting();
 
-            await app.UseOcelot();
-            app.UseAuthentication();
+            //await app.UseOcelot();
+            app.UseAuthentication();          
             app.UseAuthorization();
-            //app.UseRouting();
-
+           
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
             //app.UseEndpoints(endpoints =>
             //{
             //    endpoints.MapGet("/", async context =>

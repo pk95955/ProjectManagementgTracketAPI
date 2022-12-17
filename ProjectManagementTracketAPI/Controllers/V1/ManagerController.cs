@@ -8,12 +8,11 @@ using ProjectManagementTracketAPI.Models.DTO;
 using ProjectManagementTracketAPI.Repository;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace ProjectManagementTracketAPI.Controllers.V1
 {
-    [Route("projectmanagement/api/v1/manager")]
+    [Route("/projectmanagement/api/v1/manager")]
     [ApiController]
     public class ManagerController : ControllerBase
     {
@@ -46,9 +45,9 @@ namespace ProjectManagementTracketAPI.Controllers.V1
             response.IsSuccess = isSuccess;
             return response;
         }
-        [Authorize(Roles ="manager")]
+       // [Authorize(Roles ="manager")]
         [HttpGet]
-        [Route("list/{memberDetails}")]
+        [Route("list")]
         public async Task<IEnumerable<MemberDTO>> GetMemberDetails()
         {
            return await _memberRepo.GetMemberDetails();
@@ -71,7 +70,7 @@ namespace ProjectManagementTracketAPI.Controllers.V1
         }
         [Authorize(Roles = "manager")]
         [HttpPut]
-        [Route("Update")]
+        [Route("update")]
         public async Task<ResponseDTO> UpdateAllocation(RequestUpdateAllocationDTO requestUpdateAllocationDTO)
         {
             return await _memberRepo.UpdateAllocation(requestUpdateAllocationDTO);

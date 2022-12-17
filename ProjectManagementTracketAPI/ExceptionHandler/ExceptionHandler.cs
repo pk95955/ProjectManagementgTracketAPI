@@ -34,25 +34,6 @@ namespace ProjectManagementTracketAPI.ExceptionHnadler
                     }
                 });
             });
-        }
-        //public static void ConfigureExceptionHandler(this IApplicationBuilder app)
-        //{
-        //     app.UseExceptionHandler(error =>
-        //      {
-        //          error.Run(async context => {
-        //              var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
-        //              if (contextFeature != null)
-        //              {
-        //                  DateTime logDateTime = DateTime.Now;
-        //                  string error = contextFeature.Error.Message;
-        //                  string stackTrac = contextFeature.Error.StackTrace.ToString();
-
-
-        //              }
-
-
-        //          });
-        //      });
-        //}
+        } 
     }
 }

@@ -1,0 +1,39 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using ProjectManagementTracketAPI.Models;
+using ProjectManagementTracketAPI.Models.DTO;
+using ProjectManagementTracketAPI.Repository;
+using System.Threading.Tasks;
+
+namespace ProjectManagementTracketAPI.Controllers.V1
+{
+    [Route("projectmanagement/api/authentication")]
+    [ApiController]
+    public class AuthenticationController : ControllerBase
+    {
+        private readonly IUserRepository _userRepo;
+        public AuthenticationController(  IUserRepository userRep )
+        {
+           _userRepo = userRep;
+        }
+        [HttpPost("verifyUser")]
+        public async Task<IActionResult> VerifyUser(string userName, string password)
+        {         
+            string tokenKey;
+            bool isUserVerify;
+            (isUserVerify, tokenKey) = await _userRepo.VerifyUser(userName, password);
+            ResponseDTO response = new ResponseDTO()
+            {
+                IsSuccess = isUserVerify,
+                Message = tokenKey.ToString()
+            };
+            if (isUserVerify)
+            {
+                return Ok(response);
+            }
+            else
+            {
+                return Unauthorized();
+            }          
+        }
+    }
+}

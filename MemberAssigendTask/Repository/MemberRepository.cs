@@ -69,21 +69,35 @@ namespace ProjectManagementTracketAPI.Repository
             return response;
 
         }
-        public async Task<AssigningTaskDTO> GetAssigedTask(int MemberId)
+        public async Task<ResponseDTO> GetAssigedTask(int MemberId)
         {
+            ResponseDTO response = new ResponseDTO();
             AssigningTask assigningTask = new AssigningTask();
             assigningTask =  await _db.AssigningTask.FirstOrDefaultAsync(r => r.MemberId == MemberId);
-            AssigningTaskDTO assigningTaskDTO = new AssigningTaskDTO()
+            if (assigningTask != null)
             {
-                Id = assigningTask.Id,
-                MemberId = assigningTask.MemberId,
-                MemberName = assigningTask.MemberName,
-                Deliverbles = assigningTask.Deliverbles,
-                TaskStartDate = assigningTask.TaskStartDate,
-                TaskEndDate = assigningTask.TaskEndDate
+                AssigningTaskDTO assigningTaskDTO = new AssigningTaskDTO()
+                {
+                    Id = assigningTask.Id,
+                    MemberId = assigningTask.MemberId,
+                    MemberName = assigningTask.MemberName,
+                    TaskName = assigningTask.TaskName          ,
+                    Deliverbles = assigningTask.Deliverbles,
+                    TaskStartDate = assigningTask.TaskStartDate,
+                    TaskEndDate = assigningTask.TaskEndDate
 
-            };
-            return assigningTaskDTO;
+                };
+                response.IsSuccess = true;
+                response.Result = assigningTaskDTO;
+            }
+            else
+            {
+                response.IsSuccess = false;
+                response.Message = "No record found";
+
+            }
+         
+            return response;
             
         }
       

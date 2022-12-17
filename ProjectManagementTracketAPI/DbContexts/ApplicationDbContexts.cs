@@ -1,18 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProjectManagementTracketAPI.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace ProjectManagementTracketAPI.DbContexts
 {
     public class ApplicationDbContexts: DbContext
     {
-        public ApplicationDbContexts(DbContextOptions<ApplicationDbContexts> options): base(options)
-        {
-                
-        }
+        public ApplicationDbContexts(DbContextOptions<ApplicationDbContexts> options): base(options){}
         public DbSet<Member> Members { get; set; }
         public DbSet<SkillsMaster> SkillsMaster { get; set; }
         public DbSet<SkillsTransaction> SkillsTransaction { get; set; }

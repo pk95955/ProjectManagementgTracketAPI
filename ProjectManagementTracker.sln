@@ -9,7 +9,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "APiGateway", "APiGateway", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APIGateway", "APIGateway\APIGateway.csproj", "{1CC08B3A-8AFD-4B48-ACF7-4B0BB7C19163}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MemberAssigendTask", "MemberAssigendTask\MemberAssigendTask.csproj", "{B20BD0B7-3166-4697-A125-6143D8666C45}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MemberAssigendTask", "MemberAssigendTask\MemberAssigendTask.csproj", "{B20BD0B7-3166-4697-A125-6143D8666C45}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "APIGatewayOcelot", "APIGatewayOcelot", "{F352275C-8CD8-424C-8438-FFDB522E1454}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIGatewayOcelot", "AuthServer\APIGatewayOcelot.csproj", "{C7E7466E-84C0-4FFC-B01A-D40B33F7F227}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,12 +33,17 @@ Global
 		{B20BD0B7-3166-4697-A125-6143D8666C45}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B20BD0B7-3166-4697-A125-6143D8666C45}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B20BD0B7-3166-4697-A125-6143D8666C45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7E7466E-84C0-4FFC-B01A-D40B33F7F227}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7E7466E-84C0-4FFC-B01A-D40B33F7F227}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7E7466E-84C0-4FFC-B01A-D40B33F7F227}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7E7466E-84C0-4FFC-B01A-D40B33F7F227}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{1CC08B3A-8AFD-4B48-ACF7-4B0BB7C19163} = {98C99F2B-C7A2-4319-A667-637AD72C2E04}
+		{C7E7466E-84C0-4FFC-B01A-D40B33F7F227} = {F352275C-8CD8-424C-8438-FFDB522E1454}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E4D128B8-2C7B-4435-B1A9-00B3D321C625}

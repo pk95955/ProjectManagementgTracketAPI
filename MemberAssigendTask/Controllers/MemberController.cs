@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using ProjectManagementTracketAPI.Repository;
 using System;
 using System.Collections.Generic;
@@ -9,26 +10,43 @@ using System.Threading.Tasks;
 
 namespace MemberAssigendTask.Controllers
 {
-    [Route("api/v1/[controller]")]
+    [Route("/projectmanagement/api/v1/member")]
     [ApiController]
     public class MemberController : ControllerBase
     {
         private readonly IMemberRepository _memberRepo;
-        public MemberController(IMemberRepository memberRepo)
+        //
+        private readonly ILogger<MemberController> _logger;
+
+        //public ElasticSearchController(ILogger<ElasticSearchController> logger)
+        //{
+        //    _logger = logger;
+       // }       
+        //
+        public MemberController(IMemberRepository memberRepo, ILogger<MemberController> logger)
         {
+            _logger = logger;
             _memberRepo = memberRepo;
-           
+            _memberRepo.AssigningTask();
         }
-        [Authorize]
+        //[Authorize]
         [HttpGet("list")]
-        public async Task<IActionResult> ReadMessageFromRabbitQueue(int memberId)
+        public async Task<IActionResult> GetAssinedTask(int memberId)
         {             
             return Ok(await _memberRepo.GetAssigedTask(memberId));
             
         }
-        [HttpGet("read-message")]
-       
-        public void GetAssinedTask()
+        // GET: api/values  
+        [HttpGet("GetRandomvalue")]       
+        public int GetRandomvalue()
+        {
+            var random = new Random();
+            var randomValue = random.Next(0, 100);
+            _logger.LogInformation($"Random Value is {randomValue}");
+            return randomValue;
+        }
+        [HttpGet("read-message")]       
+        public void ReadMessageFromRabbitQueue()
         {
             try
             {

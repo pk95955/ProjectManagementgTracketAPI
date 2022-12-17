@@ -7,7 +7,7 @@ namespace ProjectManagementTracketAPI.Repository
     public interface IMemberRepository
     {      
         ResponseDTO AssigningTask();
-        Task<AssigningTaskDTO> GetAssigedTask(int MemberId);
+        Task<ResponseDTO> GetAssigedTask(int MemberId);
        
     }
 }

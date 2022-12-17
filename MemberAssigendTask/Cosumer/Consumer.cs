@@ -1,21 +1,16 @@
 ﻿using MemberAssigendTask.Model;
 using Newtonsoft.Json;
 using ProjectManagementTracketAPI.DbContexts;
-using ProjectManagementTracketAPI.Models;
-using ProjectManagementTracketAPI.Models.DTO;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace MemberAssigendTask.Cosumer
 {
     public class Consumer
     {
-        public void  ConsumeMeggae(ApplicationDbContext db)
+        public void ConsumeMeggae(ApplicationDbContext db)
         {
             // published message rabbit mq
             var factory = new ConnectionFactory
@@ -27,7 +22,7 @@ namespace MemberAssigendTask.Cosumer
             using var channel = connection.CreateModel();
             channel.QueueDeclare("assinged-task-queue",
                 durable: true,
-                exclusive: false, 
+                exclusive: false,
                 autoDelete: false,
                 arguments: null);
             var consumer = new EventingBasicConsumer(channel);
@@ -39,21 +34,19 @@ namespace MemberAssigendTask.Cosumer
                 AssigningTask assigningTask = new AssigningTask();
                 assigningTask = JsonConvert.DeserializeObject<AssigningTask>(message);
                 assigningTask.Id = 0;
-               AssignedTAsk(db, assigningTask);
+                AssignedTAsk(db, assigningTask);
             };
             channel.BasicConsume("assinged-task-queue", true, consumer);
-            //return message;
 
-           
         }
-        public async void AssignedTAsk(ApplicationDbContext _db, AssigningTask assigningTask )
+        public async void AssignedTAsk(ApplicationDbContext _db, AssigningTask assigningTask)
         {
-            
+
             _db.AssigningTask.Add(assigningTask);
-           await  _db.SaveChangesAsync();
-             
+            await _db.SaveChangesAsync();
+
         }
 
     }
-    
+
 }
