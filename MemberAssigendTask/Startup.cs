@@ -58,12 +58,11 @@ namespace MemberAssigendTask
             services.AddScoped<IMemberRepository, MemberRepository>();
             services.AddControllers();
             //Authorization
-            var key = Configuration.GetSection("SecretKey").Value;
-
+            var key = Configuration.GetSection("Jwt")["Key"];
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                // x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(x =>
             {
                 // x.RequireHttpsMetadata = false;
@@ -74,8 +73,8 @@ namespace MemberAssigendTask
                     ValidateIssuer = true,
                     ValidateAudience = true,
                     ValidateLifetime = true,
-                    ValidIssuer = Configuration.GetSection("Jwt:Issuer").Value,
-                    ValidAudience = Configuration.GetSection("Jwt:Aud").Value,
+                    ValidIssuer = Configuration.GetSection("Jwt")["Issuer"],
+                    ValidAudience = Configuration.GetSection("Jwt")["Aud"],
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(key))
                 };
             });
@@ -92,7 +91,7 @@ namespace MemberAssigendTask
             }
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

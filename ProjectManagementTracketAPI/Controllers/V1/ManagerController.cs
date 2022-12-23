@@ -45,7 +45,8 @@ namespace ProjectManagementTracketAPI.Controllers.V1
             response.IsSuccess = isSuccess;
             return response;
         }
-       // [Authorize(Roles ="manager")]
+        // [Authorize(Roles ="manager")]
+        //[Authorize]
         [HttpGet]
         [Route("list")]
         public async Task<IEnumerable<MemberDTO>> GetMemberDetails()

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProjectManagementTracketAPI.Models;
 using ProjectManagementTracketAPI.Models.DTO;
@@ -20,7 +21,10 @@ namespace ProjectManagementTracketAPI.Controllers.V1
         }
         [HttpGet]
         [Route("list")]
-        [Authorize(Roles = "member")]
+        //[Authorize(Roles = "member")]
+       // [Authorize]
+       // [Authorize(AuthenticationSchemes ="JwtBearerDefaults.AuthenticationScheme")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ResponseDTO> GetAssignedTask()
         {
             return await _memberRepo.GetAssigedTask();

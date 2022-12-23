@@ -27,6 +27,7 @@ namespace APIGateway
         }
 
         public IConfiguration Configuration { get; }
+        private readonly string policyName = "CorsPolicy";
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
@@ -34,7 +35,7 @@ namespace APIGateway
             //services.AddOcelot();
 
             // get secret key from app setting 
-            var key = Configuration.GetSection("SecretKey").Value;
+            var key = Configuration.GetSection("Jwt")["Key"];
             var issuer = Configuration.GetSection("Jwt")["Issuer"];
             var aud1 = Configuration.GetSection("Jwt")["Aud1"];
             var aud2 = Configuration.GetSection("Jwt")["Aud2"];
@@ -45,28 +46,38 @@ namespace APIGateway
            );
             services.AddMemoryCache();
             services.AddScoped<IUserRepository>(sp =>
-                ActivatorUtilities.CreateInstance<UserRepository>(sp, key)
+                ActivatorUtilities.CreateInstance<UserRepository>(sp, key,issuer, audience)
             );
-            services.AddControllers();
 
-
-            services.AddAuthentication(x =>
+            //CORS  Policy
+            services.AddCors(opt =>
             {
-                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(x =>
-            {
-                x.RequireHttpsMetadata = false;
-                x.SaveToken = true;
-                x.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                opt.AddPolicy(name: policyName, builder =>
                 {
-                    ValidateIssuerSigningKey = true,
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(key))
-                };
+                    builder.WithOrigins("*").AllowAnyHeader().AllowAnyMethod();
+                });
             });
-        }
+            services.AddControllers();
+        //    var authenticationProviderKey = "IdentityApiKey";
+
+
+        //    services.AddAuthentication(x =>
+        //    {
+        //        x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        //        x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        //    }).AddJwtBearer(authenticationProviderKey,x =>
+        //    {
+        //        x.RequireHttpsMetadata = false;
+        //        x.SaveToken = true;
+        //        x.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+        //        {
+        //            ValidateIssuerSigningKey = true,
+        //            ValidateIssuer = false,
+        //            ValidateAudience = false,
+        //            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(key))
+        //        };
+        //    });
+       }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public  void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -76,10 +87,11 @@ namespace APIGateway
                 app.UseDeveloperExceptionPage();
             }
             app.UseRouting();
+            app.UseCors(policyName);
 
             //await app.UseOcelot();
-            app.UseAuthentication();          
-            app.UseAuthorization();
+           // app.UseAuthentication();          
+            //app.UseAuthorization();
            
             app.UseEndpoints(endpoints =>
             {

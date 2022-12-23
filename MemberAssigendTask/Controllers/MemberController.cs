@@ -1,16 +1,18 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ProjectManagementTracketAPI.Repository;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace MemberAssigendTask.Controllers
 {
-    [Route("/projectmanagement/api/v1/member")]
+    [Route("/projectmanagement/api/v1/members")]
     [ApiController]
     public class MemberController : ControllerBase
     {
@@ -29,7 +31,7 @@ namespace MemberAssigendTask.Controllers
             _memberRepo = memberRepo;
             _memberRepo.AssigningTask();
         }
-        //[Authorize]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet("list")]
         public async Task<IActionResult> GetAssinedTask(int memberId)
         {             

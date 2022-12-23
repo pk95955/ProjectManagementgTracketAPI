@@ -25,6 +25,9 @@ namespace ProjectManagementTracketAPI.Repository
             _db = db;
             _secretKey = secretKey;
             _memoryCache = memoryCache;
+            _issuer = issuer;
+            _audience = audience;
+
         }
         public async Task<(bool,string)> VerifyUser(string userName, string password)
         {

@@ -14,14 +14,19 @@ namespace ProjectManagementTracketAPI.Repository
     {
         private readonly ApplicationDbContexts _db;
         private readonly IMemoryCache _memoryCache;
-        private readonly string _secretKey;
+        private readonly string _secretKey;   
+        private readonly string _issuer;
+        private readonly IEnumerable<string> _audience;
 
-       
-        public UserRepository(ApplicationDbContexts db, IMemoryCache memoryCache, string secretKey)
+
+
+        public UserRepository(ApplicationDbContexts db, IMemoryCache memoryCache, string secretKey, string issuer, IEnumerable<string> audience)
         {
             _db = db;
             _secretKey = secretKey;
             _memoryCache = memoryCache;
+            _issuer = issuer;
+            _audience = audience;
         }
         public async Task<(bool,string)> VerifyUser(string userName, string password)
         {
@@ -34,7 +39,7 @@ namespace ProjectManagementTracketAPI.Repository
             {
                Users d = new Users(user, _memoryCache);           
                 isVerifyUser = true;
-                token =  new TokenGeneration().TokenGenration(user, _secretKey);
+                token =  new TokenGeneration().TokenGenration(user, _secretKey, _issuer, _audience);
             }
               
             return  (isVerifyUser ,token);

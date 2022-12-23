@@ -2,6 +2,7 @@
 using ProjectManagementTracketAPI.Models;
 using ProjectManagementTracketAPI.Models.DTO;
 using ProjectManagementTracketAPI.Repository;
+using System;
 using System.Threading.Tasks;
 
 namespace ProjectManagementTracketAPI.Controllers.V1
@@ -17,23 +18,29 @@ namespace ProjectManagementTracketAPI.Controllers.V1
         }
         [HttpPost("verifyUser")]
         public async Task<IActionResult> VerifyUser(string userName, string password)
-        {         
-            string tokenKey;
-            bool isUserVerify;
-            (isUserVerify, tokenKey) = await _userRepo.VerifyUser(userName, password);
-            ResponseDTO response = new ResponseDTO()
+        {
+            try
             {
-                IsSuccess = isUserVerify,
-                Message = tokenKey.ToString()
-            };
-            if (isUserVerify)
+                string tokenKey;
+                bool isUserVerify;
+                (isUserVerify, tokenKey) = await _userRepo.VerifyUser(userName, password);
+                ResponseDTO response = new ResponseDTO()
+                {
+                    IsSuccess = isUserVerify,
+                    Message = tokenKey.ToString()
+                };
+                if (isUserVerify)
+                {
+                    return Ok(response);
+                }
+                else
+                {
+                    return Unauthorized();
+                }
+            }catch(Exception ex)
             {
-                return Ok(response);
+                return Ok(ex.Message);
             }
-            else
-            {
-                return Unauthorized();
-            }          
         }
     }
 }

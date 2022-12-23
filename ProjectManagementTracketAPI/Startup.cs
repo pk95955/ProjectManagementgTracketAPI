@@ -16,6 +16,8 @@ using ProjectManagementTracketAPI.ExceptionHnadler;
 using System;
 using System.Text;
 using ProjectManagementTracketAPI.ExceptionHandler;
+using System.Collections.Generic;
+
 namespace ProjectManagementTracketAPI
 {
     public class Startup
@@ -31,13 +33,17 @@ namespace ProjectManagementTracketAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+           
             services.AddDbContext<ApplicationDbContexts>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")),
             ServiceLifetime.Scoped
             );
-            var key = Configuration.GetSection("SecretKey").Value;
-              key = Configuration.GetSection("Jwt")["Key"];
-            var ValidIssuer = Configuration.GetSection("Jwt")["Issuer"];
+            //var key = Configuration.GetSection("SecretKey").Value;
+            var key = Configuration.GetSection("Jwt")["Key"];
+            var issuer = Configuration.GetSection("Jwt")["Issuer"];
+            var aud1 = Configuration.GetSection("Jwt")["Aud"];
+            var aud2 = Configuration.GetSection("Jwt")["Aud2"];
+            IEnumerable<string> audience = new[] { aud1, aud2 };
             services.AddSingleton<ILog, LogNLog>();
             IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
             services.AddSingleton(mapper);
@@ -49,9 +55,12 @@ namespace ProjectManagementTracketAPI
            );
             services.AddMemoryCache();
            
+            //services.AddScoped<IUserRepository>(sp =>
+             //   ActivatorUtilities.CreateInstance<UserRepository>(sp, key)
+            //);
             services.AddScoped<IUserRepository>(sp =>
-                ActivatorUtilities.CreateInstance<UserRepository>(sp, key)
-            );
+              ActivatorUtilities.CreateInstance<UserRepository>(sp, key, issuer, audience)
+          );
             // You can use the implementation factory delegate when adding your service.
             //services.AddSingleton<ISecurityCache>(sp =>
             //    new SecurityCache(AppId, sp.GetService<IService1>(), sp.GetService<IService2>())
@@ -115,30 +124,35 @@ namespace ProjectManagementTracketAPI
             services.AddSingleton<Microsoft.AspNetCore.Http.IHttpContextAccessor,
                Microsoft.AspNetCore.Http.HttpContextAccessor>();
 
-            // get secret key from app setting         
+            // get secret key from app setting
+            //var authenticationProviderKey = "IdentityApiKeyProjectTracker";
 
-            services.AddAuthentication(x =>
+            services.AddAuthentication(
+                x =>
             {
+                //x.DefaultAuthenticateScheme = "Bearer";
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-               // x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(x =>
+               x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }
+        ).AddJwtBearer(x =>
             {
-                // x.RequireHttpsMetadata = false;
-                //x.SaveToken = true;
-                x.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                 x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
                     ValidateIssuer = true,
                     ValidateAudience = true,
                     ValidateLifetime = true,
-                    ValidIssuer = Configuration.GetSection("Jwt:Issuer").Value,
-                    ValidAudience= Configuration.GetSection("Jwt:Aud").Value,
+                    ValidIssuer = Configuration.GetSection("Jwt")["Issuer"],
+                    ValidAudience= Configuration.GetSection("Jwt")["Aud"],
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(key))
                 };
-            }); 
+            });
+           
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        //This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILog logger)
         {
             if (env.IsDevelopment())
